@@ -1,0 +1,55 @@
+name: Test
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: OTP ${{matrix.otp}} / Elixir ${{matrix.elixir}}
+
+    strategy:
+      matrix:
+        otp: [22.x]
+        elixir: [1.9.x]
+
+    services:
+      postgres:
+        image: postgres:11
+        ports: ['5432:5432']
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v1.0.0
+
+      - uses: actions/setup-elixir@v1.1.0
+        with:
+          otp-version: ${{matrix.otp}}
+          elixir-version: ${{matrix.elixir}}
+
+      - uses: actions/cache@v1
+        with:
+          path: _build/dev
+          key: dialyzer-plt-elixir-${{matrix.elixir}}-otp-${{matrix.otp}}-${{runner.os}}-${{hashFiles('mix.lock')}}-${{github.ref}}
+          restore-keys: |
+            dialyzer-plt-elixir-${{matrix.elixir}}-otp-${{matrix.otp}}-${{runner.os}}-${{hashFiles('mix.lock')}}-${{github.ref}}
+            dialyzer-plt-elixir-${{matrix.elixir}}-otp-${{matrix.otp}}-${{runner.os}}-${{hashFiles('mix.lock')}}-
+
+      - name: Install Dependencies
+        run: mix deps.get
+
+      - name: Test
+        run: |
+          mix ecto.create
+          mix ecto.migrate
+          mix test
+        env:
+          MIX_ENV: test
+          POSTGRES_PORT: 5432
+          POSTGRES_DB: postgres

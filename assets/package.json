@@ -1,0 +1,37 @@
+{
+  "repository": {},
+  "license": "MIT",
+  "scripts": {
+    "build": "NODE_ENV=production webpack -p --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "dev": "NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "bootstrap-vue": "^2.1.0",
+    "likhtar": "file:../likhtar",
+    "moment": "^2.24.0",
+    "vue": "^2.6.11"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "css-loader": "^2.1.0",
+    "eslint": "^5.12.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-import-resolver-webpack": "^0.11.0",
+    "eslint-loader": "^2.1.2",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-vue": "^5.2.2",
+    "laravel-mix": "^4.0.14",
+    "laravel-mix-eslint": "^0.1.2",
+    "sass": "^1.24.0",
+    "sass-loader": "^7.1.0",
+    "vue-loader": "^15.8.3",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  }
+}
