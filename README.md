@@ -2,9 +2,9 @@
 
 Oliya is a tool for collecting financial data and providing OHLCV data through HTTP and WebSocket.
 
-Oliya is a Phoenix app built with [tai](https://github.com/fremantle-capital/tai). It is intended to be used in conjunction with [Likhtar](https://github.com/yurikoval/likhtar) - financial data charting tool.
+Oliya is a Phoenix app built with [tai](https://github.com/fremantle-capital/tai). It is intended to be used in conjunction with [Likhtar](https://github.com/blacksmith-capital/likhtar) - financial data charting tool.
 
-[![Build Status](https://github.com/yurikoval/oliya/workflows/Test/badge.svg)](https://github.com/yurikoval/oliya/actions?query=workflow%3ATest)
+[![Build Status](https://github.com/blacksmith-capital/oliya/workflows/Test/badge.svg)](https://github.com/blacksmith-capital/oliya/actions?query=workflow%3ATest)
 
 To start your Phoenix server:
 
