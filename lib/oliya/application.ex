@@ -11,9 +11,10 @@ defmodule Oliya.Application do
       {Oliya.Repo, []},
       Oliya.History.Worker,
       # Start the endpoint when the application starts
-      OliyaWeb.Endpoint
+      OliyaWeb.Endpoint,
       # Starts a worker by calling: Oliya.Worker.start_link(arg)
       # {Oliya.Worker, arg},
+      Oliya.HistoryPurger
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
