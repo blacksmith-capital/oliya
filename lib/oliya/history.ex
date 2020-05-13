@@ -44,12 +44,12 @@ defmodule Oliya.History do
 
     @spec init(state) :: {:ok, state}
     def init(state) do
-      Enum.each(@subscribe_to, &Tai.Events.subscribe/1)
+      Enum.each(@subscribe_to, &TaiEvents.subscribe/1)
       {:ok, state}
     end
 
-    @spec handle_info({Tai.Event, event, level}, state) :: {:noreply, state}
-    def handle_info({Tai.Event, event, _level}, state) do
+    @spec handle_info({TaiEvents.Event, event, level}, state) :: {:noreply, state}
+    def handle_info({TaiEvents.Event, event, _level}, state) do
       event |> to_model |> insert
       {:noreply, state}
     end
