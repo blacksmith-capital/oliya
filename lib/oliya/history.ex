@@ -44,7 +44,7 @@ defmodule Oliya.History do
 
     @spec init(state) :: {:ok, state}
     def init(state) do
-      Enum.each(@subscribe_to, &Tai.Events.subscribe/1)
+      Enum.each(@subscribe_to, &TaiEvents.subscribe/1)
       {:ok, state}
     end
 
