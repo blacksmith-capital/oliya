@@ -1,17 +1,18 @@
 defmodule Oliya.History do
   defmodule Backend do
-    alias Oliya.History.Backend.Postgres
+    alias Oliya.History.Backend.{Postgres, Tectonicdb}
     @type event :: map
 
     @doc "Receives an event and inserts into the backend"
     @callback insert(event) :: {:ok, event} | {:error, atom}
 
-    def mod, do: Application.get_env(:oliya, :backend, Postgres)
+    def mod, do: Application.get_env(:oliya, :backend, Tectonicdb)
 
     def child_spec(args \\ []) do
       {backend_mod, opts} =
         case Keyword.get(args, :backend, mod()) do
           Postgres -> {Oliya.Repo, args}
+          Tectonicdb -> {ExTectonicdb, Keyword.merge(args, name: Tectonicdb)}
         end
 
       %{
