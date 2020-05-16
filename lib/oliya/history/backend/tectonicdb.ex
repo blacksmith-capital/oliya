@@ -28,7 +28,21 @@ defmodule Oliya.History.Backend.Tectonicdb do
     {model, db}
   end
 
-  defp do_insert({dtf, db}, conn), do: ExTectonicdb.Commands.insert_into(__MODULE__, dtf, db)
+  defp do_insert({dtf, db}, conn) do
+    case ExTectonicdb.Commands.insert_into(__MODULE__, dtf, db) do
+      {:ok, model, _} = ok ->
+        {:ok, model}
+
+      {:error, :db_not_found} ->
+        {:ok, _} = create(db)
+        {:ok, model, _} = ExTectonicdb.Commands.insert_into(__MODULE__, dtf, db)
+        {:ok, model}
+
+      e ->
+        e
+    end
+  end
+
   defp db_name(venue, symbol), do: Enum.join([venue, symbol], "_")
 
   defp to_side(:buy), do: true
@@ -36,4 +50,6 @@ defmodule Oliya.History.Backend.Tectonicdb do
 
   defp to_float(%Decimal{} = v), do: v |> Decimal.to_float()
   defp to_float(v), do: Ecto.Type.cast(:float, v) |> elem(1)
+
+  defp create(db), do: ExTectonicdb.Commands.create(__MODULE__, db)
 end
