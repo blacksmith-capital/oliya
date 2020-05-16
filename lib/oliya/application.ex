@@ -8,7 +8,7 @@ defmodule Oliya.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      {Oliya.Repo, []},
+      {Oliya.History.Backend, []},
       Oliya.History.Worker,
       # Start the endpoint when the application starts
       OliyaWeb.Endpoint,
