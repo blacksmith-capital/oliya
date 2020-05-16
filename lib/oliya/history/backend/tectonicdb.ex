@@ -28,7 +28,7 @@ defmodule Oliya.History.Backend.Tectonicdb do
     {model, db}
   end
 
-  defp do_insert({dtf, db}, conn), do: ExTectonicdb.Commands.insert_into(conn, dtf, db)
+  defp do_insert({dtf, db}, conn), do: ExTectonicdb.Commands.insert_into(__MODULE__, dtf, db)
   defp db_name(venue, symbol), do: Enum.join([venue, symbol], "_")
 
   defp to_side(:buy), do: true

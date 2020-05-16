@@ -1,28 +1,9 @@
 defmodule Oliya.History do
   defmodule Backend do
-    alias Oliya.History.Backend.{Postgres, Tectonicdb}
     @type event :: map
 
     @doc "Receives an event and inserts into the backend"
     @callback insert(event) :: {:ok, event} | {:error, atom}
-
-    def mod, do: Application.get_env(:oliya, :backend, Tectonicdb)
-
-    def child_spec(args \\ []) do
-      {backend_mod, opts} =
-        case Keyword.get(args, :backend, mod()) do
-          Postgres -> {Oliya.Repo, args}
-          Tectonicdb -> {ExTectonicdb, Keyword.merge(args, name: Tectonicdb)}
-        end
-
-      %{
-        id: backend_mod,
-        start: {backend_mod, :start_link, [opts]},
-        restart: :permanent,
-        shutdown: 5000,
-        type: :worker
-      }
-    end
   end
 
   defmodule Worker do
@@ -32,7 +13,7 @@ defmodule Oliya.History do
     use GenServer
 
     defmodule State do
-      defstruct backend: Oliya.History.Backend.mod()
+      defstruct [:backend]
     end
 
     @type event :: map
