@@ -17,3 +17,7 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 # TODO
 
 - [ ] Extract `Oliya` into standalone pluggable package
+
+## Authors
+
+* [Yuri Koval'ov](https://www.yurikoval.com/) - hello@yurikoval.com

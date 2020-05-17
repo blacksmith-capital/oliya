@@ -7,6 +7,7 @@ defmodule Oliya.MixProject do
       app: :oliya,
       version: "0.1.0",
       elixir: "~> 1.8",
+      package: package(),
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -50,4 +51,10 @@ defmodule Oliya.MixProject do
   end
 
   defp aliases, do: [test: "test --no-start"]
+
+  defp package do
+    %{
+      maintainers: ["Yuri Koval'ov"]
+    }
+  end
 end
