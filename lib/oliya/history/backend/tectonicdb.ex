@@ -18,7 +18,7 @@ defmodule Oliya.History.Backend.Tectonicdb do
          venue_trade_id: _venue_trade_id
        }) do
     model = %ExTectonicdb.Dtf{
-      timestamp: timestamp,
+      timestamp: timestamp |> DateTime.to_unix(:microsecond),
       seq: 0,
       is_trade: true,
       is_bid: to_side(side),
