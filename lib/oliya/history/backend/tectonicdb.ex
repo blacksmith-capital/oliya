@@ -3,7 +3,10 @@ defmodule Oliya.History.Backend.Tectonicdb do
   @behaviour Backend
 
   @impl Backend
-  def insert(event), do: event |> to_model |> do_insert(nil)
+  def insert(event) do
+    conn = __MODULE__
+    event |> to_model |> do_insert(conn)
+  end
 
   defp to_model(%{
          price: price,
@@ -29,13 +32,13 @@ defmodule Oliya.History.Backend.Tectonicdb do
   end
 
   defp do_insert({dtf, db}, conn) do
-    case ExTectonicdb.Commands.insert_into(__MODULE__, dtf, db) do
-      {:ok, model, _} = ok ->
+    case ExTectonicdb.Commands.insert_into(conn, dtf, db) do
+      {:ok, model, _} ->
         {:ok, model}
 
       {:error, :db_not_found} ->
         {:ok, _} = create(db)
-        {:ok, model, _} = ExTectonicdb.Commands.insert_into(__MODULE__, dtf, db)
+        {:ok, model, _} = ExTectonicdb.Commands.insert_into(conn, dtf, db)
         {:ok, model}
 
       e ->

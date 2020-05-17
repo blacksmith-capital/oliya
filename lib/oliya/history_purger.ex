@@ -24,7 +24,7 @@ defmodule Oliya.HistoryPurger do
       |> :os.system_time()
       |> Kernel.-(after_ms)
       |> DateTime.from_unix!(:millisecond)
-      |> Oliya.History.PostgresWorker.Trade.delete_before()
+      |> Oliya.History.Backend.Postgres.Trade.delete_before()
 
     {:noreply, state}
   end
