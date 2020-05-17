@@ -8,18 +8,21 @@ defmodule Oliya.History.Supervisor do
 
   def init(arg) do
     history_worker = {Oliya.History.Worker, [backend: backend_config()]}
-    backend_worker = backend_worker(backend_config(), arg)
+    backend_workers = backend_workers(backend_config(), arg)
 
-    [history_worker, backend_worker]
+    ([history_worker] ++ backend_workers)
     |> Supervisor.init(strategy: :one_for_one)
   end
 
-  defp backend_worker(Postgres, args) do
-    worker(Oliya.Repo, [args])
+  defp backend_workers(Postgres, args) do
+    [
+      worker(Oliya.Repo, [args]),
+      Oliya.HistoryPurger
+    ]
   end
 
-  defp backend_worker(Tectonicdb, _args) do
-    worker(ExTectonicdb, [[name: Tectonicdb]])
+  defp backend_workers(Tectonicdb, _args) do
+    [worker(ExTectonicdb, [[name: Tectonicdb]])]
   end
 
   defp backend_config, do: Application.get_env(:oliya, :backend, Tectonicdb)

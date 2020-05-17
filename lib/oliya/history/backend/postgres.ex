@@ -37,7 +37,7 @@ defmodule Oliya.History.Backend.Postgres do
          side: side,
          venue_trade_id: venue_trade_id
        }) do
-    struct!(Oliya.History.Trade, %{
+    struct!(Trade, %{
       venue: venue_id |> Atom.to_string(),
       symbol: instrument |> Atom.to_string(),
       price: price |> to_price(),
