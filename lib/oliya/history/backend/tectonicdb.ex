@@ -8,6 +8,32 @@ defmodule Oliya.History.Backend.Tectonicdb do
     event |> to_model |> do_insert(conn)
   end
 
+  # trade
+  defp to_model(%{
+         price: price,
+         qty: volume,
+         venue_id: venue_id,
+         symbol: symbol,
+         timestamp: timestamp,
+         taker_side: side,
+         venue_trade_id: _venue_trade_id
+       })
+       when not is_nil(timestamp) do
+    model = %ExTectonicdb.Dtf{
+      timestamp: timestamp |> DateTime.to_unix(:microsecond),
+      seq: 0,
+      is_trade: true,
+      is_bid: to_side(side),
+      price: to_float(price),
+      size: to_float(volume)
+    }
+
+    db = db_name(venue_id, symbol)
+
+    {model, db}
+  end
+
+  # order
   defp to_model(%{
          price: price,
          qty: volume,
@@ -15,12 +41,13 @@ defmodule Oliya.History.Backend.Tectonicdb do
          symbol: symbol,
          timestamp: timestamp,
          side: side,
-         venue_trade_id: _venue_trade_id
-       }) do
+         seq: seq
+       })
+       when not is_nil(timestamp) do
     model = %ExTectonicdb.Dtf{
-      timestamp: timestamp |> DateTime.to_unix(:microsecond),
-      seq: 0,
-      is_trade: true,
+      timestamp: timestamp,
+      seq: seq,
+      is_trade: false,
       is_bid: to_side(side),
       price: to_float(price),
       size: to_float(volume)
@@ -48,8 +75,8 @@ defmodule Oliya.History.Backend.Tectonicdb do
 
   defp db_name(venue, symbol), do: Enum.join([venue, symbol], "_")
 
-  defp to_side(:buy), do: true
-  defp to_side(:sell), do: false
+  defp to_side(s) when s in ~w[buy bid]a, do: true
+  defp to_side(s) when s in ~w[ask sell]a, do: false
 
   defp to_float(%Decimal{} = v), do: v |> Decimal.to_float()
   defp to_float(v), do: Ecto.Type.cast(:float, v) |> elem(1)
