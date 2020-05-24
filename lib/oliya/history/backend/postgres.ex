@@ -17,15 +17,6 @@ defmodule Oliya.History.Backend.Postgres do
 
       timestamps()
     end
-
-    def delete_before(%DateTime{} = ts) do
-      ~S"""
-      DELETE
-      FROM trades
-      WHERE timestamp <= $1;
-      """
-      |> Oliya.Repo.query([ts])
-    end
   end
 
   defp to_model(%{

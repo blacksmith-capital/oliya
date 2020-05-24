@@ -85,6 +85,3 @@ config :tai,
       channels: [:trades]
     ]
   }
-
-# cleanse data after 1 day
-config :oliya, cleanse_after_ms: 1000 * 60 * 60 * 24

@@ -16,8 +16,7 @@ defmodule Oliya.History.Supervisor do
 
   defp backend_workers(Postgres, args) do
     [
-      worker(Oliya.Repo, [args]),
-      Oliya.HistoryPurger
+      worker(Oliya.Repo, [args])
     ]
   end
 
