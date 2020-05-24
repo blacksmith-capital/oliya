@@ -1,5 +1,5 @@
-defmodule Oliya.History.Backend.Postgres do
-  alias Oliya.History.Backend
+defmodule Oliya.Recorder.Backend.Postgres do
+  alias Oliya.Recorder.Backend
   @behaviour Backend
 
   defmodule Trade do

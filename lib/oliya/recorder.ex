@@ -1,4 +1,4 @@
-defmodule Oliya.History do
+defmodule Oliya.Recorder do
   defmodule Backend do
     @type event :: map
 

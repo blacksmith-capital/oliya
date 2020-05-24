@@ -1,5 +1,5 @@
-defmodule Oliya.History.Backend.Tectonicdb do
-  alias Oliya.History.Backend
+defmodule Oliya.Recorder.Backend.Tectonicdb do
+  alias Oliya.Recorder.Backend
   @behaviour Backend
 
   @impl Backend

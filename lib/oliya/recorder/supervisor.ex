@@ -1,13 +1,13 @@
-defmodule Oliya.History.Supervisor do
+defmodule Oliya.Recorder.Supervisor do
   use Supervisor
-  alias Oliya.History.Backend.{Postgres, Tectonicdb}
+  alias Oliya.Recorder.Backend.{Postgres, Tectonicdb}
 
   def start_link(arg) do
     Supervisor.start_link(__MODULE__, arg)
   end
 
   def init(arg) do
-    history_worker = {Oliya.History.Worker, [backend: backend_config()]}
+    history_worker = {Oliya.Recorder.Worker, [backend: backend_config()]}
     backend_workers = backend_workers(backend_config(), arg)
 
     ([history_worker] ++ backend_workers)
