@@ -1,7 +1,8 @@
-defmodule Oliya.OhlcQuery do
-  alias Oliya.{IntervalRounder, PgInterval, Repo}
+defmodule Oliya.Retriever.Postgres.OhlcQuery do
+  alias Oliya.Repo
+  alias Oliya.Retriever.Postgres.{IntervalRounder, PgInterval}
 
-  defmodule Oliya.OhlcQuery.Response do
+  defmodule Response do
     defstruct ~w(columns data meta)a
   end
 
@@ -56,7 +57,7 @@ defmodule Oliya.OhlcQuery do
     {:ok, %Postgrex.Result{columns: columns, num_rows: count, rows: rows}} =
       Repo.query(@sql, [venue, symbol, from, to, granularity])
 
-    response = %Oliya.OhlcQuery.Response{
+    response = %Response{
       columns: columns,
       data: rows,
       meta: %{total_count: count}

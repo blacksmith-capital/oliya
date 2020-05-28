@@ -1,6 +1,6 @@
-defmodule Oliya.OhlcQueryTest do
+defmodule Oliya.Retriever.Postgres.OhlcQueryTest do
   use Oliya.Support.WithSharedRepo
-  alias Oliya.OhlcQuery
+  alias Oliya.Retriever.Postgres.OhlcQuery
 
   test "it fetches 1m summary using range" do
     instrument = "xbtusd"

@@ -1,4 +1,6 @@
-defmodule OliyaWeb.Fetcher do
+defmodule Oliya.Retriever do
+  alias Oliya.Retriever.Postgres.OhlcQuery
+
   defmodule Params do
     @enforce_keys ~w(from to symbol granularity venue)a
     defstruct ~w(from to symbol granularity venue)a
@@ -22,7 +24,7 @@ defmodule OliyaWeb.Fetcher do
         venue: params.venue |> String.downcase(),
         granularity: params.granularity
       }
-      |> Oliya.OhlcQuery.get()
+      |> OhlcQuery.get()
 
     response = %Reseponse{
       from: adjusted_from,

@@ -1,6 +1,6 @@
-defmodule Oliya.IntervalRounderTest do
+defmodule Oliya.Retriever.Postgres.IntervalRounderTest do
   use ExUnit.Case, async: true
-  alias Oliya.{IntervalRounder, PgInterval}
+  alias Oliya.Retriever.Postgres.{IntervalRounder, PgInterval}
 
   test "it rountes to nearest 1m" do
     assert {~U[2000-01-01 01:00:00Z], ~U[2000-01-01 01:01:00Z]} =
