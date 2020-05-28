@@ -22,10 +22,10 @@ defmodule Oliya.Recorder.Backend.Postgres do
   defp to_model(%{
          price: price,
          qty: volume,
-         venue_id: venue_id,
+         taker_side: side,
          symbol: instrument,
          timestamp: timestamp,
-         side: side,
+         venue_id: venue_id,
          venue_trade_id: venue_trade_id
        }) do
     struct!(Trade, %{
@@ -37,6 +37,20 @@ defmodule Oliya.Recorder.Backend.Postgres do
       side: side |> to_side(),
       venue_trade_id: venue_trade_id |> to_venue_trade_id
     })
+  end
+
+  # order
+  defp to_model(%{
+         price: _price,
+         qty: _volume,
+         seq: _seq,
+         venue_id: _venue_id,
+         symbol: _instrument,
+         timestamp: _timestamp,
+         side: _side
+       }) do
+    # noop for now - not recordering orders in pg
+    :skip
   end
 
   defp to_price(%Decimal{} = v), do: v |> Decimal.to_float()
@@ -51,7 +65,10 @@ defmodule Oliya.Recorder.Backend.Postgres do
 
   @impl Backend
   def insert(event) do
-    event |> to_model |> pg_insert
+    case to_model(event) do
+      %Trade{} = trade -> pg_insert(trade)
+      :skip -> {:error, :not_supported}
+    end
   end
 
   defp pg_insert(e), do: Oliya.Repo.insert(e)
