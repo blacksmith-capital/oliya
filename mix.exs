@@ -11,7 +11,8 @@ defmodule Oliya.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      dialyzer: dialyzer()
     ]
   end
 
@@ -28,6 +29,7 @@ defmodule Oliya.MixProject do
   defp deps do
     [
       {:ex_tectonicdb, "~> 0.1.0"},
+      {:dialyxir, "~> 1.0", only: :dev, runtime: false},
       {:phoenix, "~> 1.4.7"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_html, "~> 2.11"},
@@ -42,6 +44,21 @@ defmodule Oliya.MixProject do
       # {:tai, git: "https://github.com/yurikoval/tai.git", branch: "master", sparse: "apps/tai"}
       {:tai,
        git: "https://github.com/fremantle-capital/tai.git", branch: "master", sparse: "apps/tai"}
+    ]
+  end
+
+  defp dialyzer do
+    [
+      plt_file: {:no_warn, "_build/#{Mix.env()}/dialyzer.plt"},
+      flags: [
+        :unmatched_returns,
+        :error_handling,
+        :race_conditions,
+        :underspecs,
+        :no_opaque
+      ],
+      plt_add_deps: :transitive,
+      ignore_warnings: "dialyzer.ignore-warnings"
     ]
   end
 
