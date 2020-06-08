@@ -4,7 +4,7 @@ defmodule Oliya.Recorder.Backend.Tectonicdb do
 
   @impl Backend
   def insert(event) do
-    conn = __MODULE__
+    conn = Process.whereis(__MODULE__)
     event |> to_model |> do_insert(conn)
   end
 
@@ -64,12 +64,9 @@ defmodule Oliya.Recorder.Backend.Tectonicdb do
         {:ok, model}
 
       {:error, :db_not_found} ->
-        {:ok, _} = create(db)
+        {:ok, _} = create(conn, db)
         {:ok, model, _} = ExTectonicdb.Commands.insert_into(conn, dtf, db)
         {:ok, model}
-
-      e ->
-        e
     end
   end
 
@@ -81,5 +78,5 @@ defmodule Oliya.Recorder.Backend.Tectonicdb do
   defp to_float(%Decimal{} = v), do: v |> Decimal.to_float()
   defp to_float(v), do: Ecto.Type.cast(:float, v) |> elem(1)
 
-  defp create(db), do: ExTectonicdb.Commands.create(__MODULE__, db)
+  defp create(conn, db), do: ExTectonicdb.Commands.create(conn, db)
 end

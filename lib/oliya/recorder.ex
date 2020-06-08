@@ -20,7 +20,7 @@ defmodule Oliya.Recorder do
     @type event :: trade_event | order_event
 
     @doc "Receives an event and inserts into the backend"
-    @callback insert(event) :: {:ok, event} | {:error, reason :: atom}
+    @callback insert(event) :: {:ok, any} | {:error, reason :: atom}
   end
 
   defmodule Worker do
@@ -30,12 +30,16 @@ defmodule Oliya.Recorder do
     use GenServer
 
     defmodule State do
+      @type t :: %State{
+              backend: module
+            }
+
       defstruct [:backend]
     end
 
     @type event :: map
     @type level :: TaiEvents.level()
-    @type state :: :ok
+    @type state :: State.t()
 
     @subscribe_to [
       Tai.Events.Trade
@@ -55,7 +59,9 @@ defmodule Oliya.Recorder do
       {:ok, state}
     end
 
-    @spec handle_info({TaiEvents.Event, event, level}, state) :: {:noreply, state}
+    @type trade_event :: {TaiEvents.Event, event, level}
+    @type order_event :: {:change_set, map}
+    @spec handle_info(trade_event | order_event, state) :: {:noreply, state}
     def handle_info({TaiEvents.Event, event, _level}, %{backend: backend} = state) do
       {:ok, _model} = backend.insert(event)
       {:noreply, state}
