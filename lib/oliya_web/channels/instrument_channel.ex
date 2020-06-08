@@ -18,7 +18,7 @@ defmodule OliyaWeb.InstrumentChannel do
   # It is also common to receive messages from the client and
   # broadcast to everyone in the current topic (instrument:lobby).
   def handle_in("shout", payload, socket) do
-    broadcast socket, "shout", payload
+    broadcast(socket, "shout", payload)
     {:noreply, socket}
   end
 
