@@ -21,9 +21,6 @@ import BootstrapVue from 'bootstrap-vue';
 import axios from 'axios';
 import Likhtar from 'likhtar';
 
-const moment = require('moment');
-const _ = require('lodash');
-
 Vue.use(BootstrapVue);
 Vue.component(Likhtar.name, Likhtar);
 
@@ -38,8 +35,8 @@ new Vue({
     symbols: 'BITMEX:XBTUSD,BINANCE:BTC_USDT',
     granularity: '1m',
     series: [
-      { id: "BITMEX-XBTUSD", type: "ohlc"},
-      { id: "BINANCE-BTC_USDT", type: "candlestick"}
+      { id: 'BITMEX-XBTUSD', type: 'ohlc' },
+      { id: 'BINANCE-BTC_USDT', type: 'candlestick' }
     ]
   }
 });
