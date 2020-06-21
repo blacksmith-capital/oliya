@@ -15,7 +15,7 @@ defmodule OliyaWeb.Api.V1.OhlcControllerTest do
       |> Oliya.Repo.query()
 
     venue = "bitmex"
-    symbol = "XBTUSD"
+    symbol = "xbtusd"
 
     from =
       DateTime.from_iso8601("#{time_str}Z")

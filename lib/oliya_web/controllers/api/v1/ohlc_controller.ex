@@ -3,11 +3,10 @@ defmodule OliyaWeb.Api.V1.OhlcController do
   alias Oliya.Retriever
 
   def index(conn, params) do
-    {:ok, fetch_params} =
+    {:ok, data} =
       params
-      |> Mapail.map_to_struct(Retriever.Params)
-
-    {:ok, data} = Retriever.fetch(fetch_params)
+      |> Retriever.to_params()
+      |> Retriever.fetch()
 
     json(conn, data |> Map.from_struct())
   end

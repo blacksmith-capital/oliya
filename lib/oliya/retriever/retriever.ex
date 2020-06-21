@@ -1,42 +1,51 @@
 defmodule Oliya.Retriever do
-  alias Oliya.Retriever.Postgres.OhlcQuery
-
   defmodule Params do
+    @type t :: %Params{
+            from: DateTime.t(),
+            granularity: any,
+            symbol: any,
+            to: DateTime.t(),
+            venue: any
+          }
+
     @enforce_keys ~w(from to symbol granularity venue)a
     defstruct ~w(from to symbol granularity venue)a
   end
 
   defmodule Reseponse do
     @derive Jason.Encoder
+
+    @type t :: %Reseponse{
+            columns: any,
+            data: any,
+            from: DateTime.t(),
+            granularity: any,
+            symbol: any,
+            to: DateTime.t(),
+            venue: any
+          }
+
     @enforce_keys ~w(columns data venue symbol from to granularity)a
     defstruct ~w(columns data venue symbol from to granularity)a
   end
 
-  def fetch(%Params{} = params) do
-    from = params.from |> to_datetime()
-    to = params.to |> to_datetime()
+  @type query_params :: Params.t()
+  @type response :: Reseponse.t()
 
-    {:ok, query_response, {adjusted_from, adjusted_to}} =
-      %{
-        from: from,
-        to: to,
-        symbol: params.symbol |> String.downcase(),
-        venue: params.venue |> String.downcase(),
-        granularity: params.granularity
-      }
-      |> OhlcQuery.get()
+  @callback fetch(query_params) :: {:ok, response}
+  def fetch(params), do: backend().fetch(params)
 
-    response = %Reseponse{
-      from: adjusted_from,
-      to: adjusted_to,
-      symbol: params.symbol,
-      venue: params.venue,
-      granularity: params.granularity,
-      data: query_response.data,
-      columns: query_response.columns
-    }
+  def to_params(%{} = params) do
+    params
+    |> Map.update!("from", &to_datetime/1)
+    |> Map.update!("to", &to_datetime/1)
+    |> Map.update!("symbol", &String.downcase/1)
+    |> Map.update!("venue", &String.downcase/1)
+    |> Mapail.map_to_struct!(Params)
+  end
 
-    {:ok, response}
+  defp backend do
+    Application.get_env(:oliya, :fetcher_backend, Oliya.Retriever.Postgres.Retriever)
   end
 
   defp to_datetime(timestamp),
