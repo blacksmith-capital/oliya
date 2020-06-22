@@ -42,8 +42,7 @@ defmodule Oliya.MixProject do
       {:mapail, "~> 1.0"},
       {:logger_file_backend, "~> 0.0.10"},
       # {:tai, git: "https://github.com/yurikoval/tai.git", branch: "master", sparse: "apps/tai"}
-      {:tai,
-       git: "https://github.com/fremantle-capital/tai.git", branch: "master", sparse: "apps/tai"}
+      {:tai, "~> 0.0.57"}
     ]
   end
 
