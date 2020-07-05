@@ -5,7 +5,7 @@ defmodule Oliya.Application do
 
   def start(_type, _args) do
     children = [
-      {Oliya.Recorder.Supervisor, []},
+      {Oliya.Backend.Supervisor, []},
       OliyaWeb.Endpoint
     ]
 

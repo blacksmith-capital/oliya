@@ -6,7 +6,7 @@ config :oliya, OliyaWeb.Endpoint,
   http: [port: 4002],
   server: false
 
-config :oliya, Oliya.Repo,
+config :oliya, Oliya.Backend.Postgres.Repo,
   username: {:system, "POSTGRES_USER", "postgres"},
   password: {:system, "POSTGRES_PASSWORD", "postgres"},
   database: {:system, "POSTGRES_DB", "lightning_test"},

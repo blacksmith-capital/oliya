@@ -1,10 +1,10 @@
-defmodule Oliya.Recorder.Backend.Tectonicdb do
-  alias Oliya.Recorder.Backend
+defmodule Oliya.Backend.Tectonicdb.Recorder do
+  alias Oliya.Backend
   @behaviour Backend
 
   @impl Backend
   def insert(event) do
-    conn = Process.whereis(__MODULE__)
+    conn = Process.whereis(Oliya.Backend.Tectonicdb)
     event |> to_model |> do_insert(conn)
   end
 
@@ -70,7 +70,7 @@ defmodule Oliya.Recorder.Backend.Tectonicdb do
     end
   end
 
-  defp db_name(venue, symbol), do: Enum.join([venue, symbol], "_")
+  def db_name(venue, symbol), do: Enum.join([venue, symbol], "_")
 
   defp to_side(s) when s in ~w[buy bid]a, do: true
   defp to_side(s) when s in ~w[ask sell]a, do: false

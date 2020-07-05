@@ -1,5 +1,5 @@
-defmodule Oliya.Recorder.Backend.Postgres do
-  alias Oliya.Recorder.Backend
+defmodule Oliya.Backend.Postgres.Recorder do
+  alias Oliya.Backend
   @behaviour Backend
 
   defmodule Trade do
@@ -71,5 +71,5 @@ defmodule Oliya.Recorder.Backend.Postgres do
     end
   end
 
-  defp pg_insert(e), do: Oliya.Repo.insert(e)
+  defp pg_insert(e), do: Oliya.Backend.Postgres.Repo.insert(e)
 end

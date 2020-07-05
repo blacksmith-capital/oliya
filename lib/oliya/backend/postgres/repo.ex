@@ -1,4 +1,4 @@
-defmodule Oliya.Repo do
+defmodule Oliya.Backend.Postgres.Repo do
   use Ecto.Repo,
     otp_app: :oliya,
     adapter: Ecto.Adapters.Postgres

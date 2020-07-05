@@ -1,10 +1,10 @@
 defmodule Oliya.Support.WithSharedRepo do
   use ExUnit.CaseTemplate
-  alias Oliya.Repo
+  alias Oliya.Backend.Postgres.Repo
 
   setup do
     old_backend = Application.get_env(:oliya, :backend)
-    Application.put_env(:oliya, :backend, Oliya.Recorder.Backend.Postgres)
+    Application.put_env(:oliya, :backend, Oliya.Backend.Postgres)
     Application.ensure_all_started(:oliya)
 
     Ecto.Adapters.SQL.Sandbox.mode(Repo, {:shared, self()})
@@ -19,7 +19,7 @@ defmodule Oliya.Support.WithSharedRepo do
 
   using do
     quote do
-      alias Oliya.Repo
+      alias Oliya.Backend.Postgres.Repo
     end
   end
 end

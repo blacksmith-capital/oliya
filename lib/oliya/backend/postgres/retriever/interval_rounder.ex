@@ -1,4 +1,4 @@
-defmodule Oliya.Retriever.Postgres.IntervalRounder do
+defmodule Oliya.Backend.Postgres.Retriever.IntervalRounder do
   def round(granularity, from, to) do
     from_unix = DateTime.to_unix(from)
     to_unix = DateTime.to_unix(to)

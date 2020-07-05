@@ -1,6 +1,6 @@
-defmodule Oliya.Retriever.Postgres.OhlcQueryTest do
+defmodule Oliya.Backend.Postgres.Retriever.OhlcQueryTest do
   use Oliya.Support.WithSharedRepo
-  alias Oliya.Retriever.Postgres.OhlcQuery
+  alias Oliya.Backend.Postgres.Retriever.OhlcQuery
 
   test "it fetches 1m summary using range" do
     instrument = "xbtusd"
@@ -42,6 +42,6 @@ defmodule Oliya.Retriever.Postgres.OhlcQueryTest do
       insert into trades (#{keys})
       values (#{values},now(), now());
       """
-      |> Oliya.Repo.query()
+      |> Repo.query()
   end
 end

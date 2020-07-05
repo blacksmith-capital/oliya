@@ -1,4 +1,4 @@
-defmodule Oliya.Retriever do
+defmodule Oliya.Backend.Retriever do
   defmodule Params do
     @type t :: %Params{
             from: DateTime.t(),
@@ -33,7 +33,7 @@ defmodule Oliya.Retriever do
   @type response :: Reseponse.t()
 
   @callback fetch(query_params) :: {:ok, response}
-  def fetch(params), do: backend().fetch(params)
+  def fetch(params), do: Module.concat([backend(), Retriever]).fetch(params)
 
   def to_params(%{} = params) do
     params
@@ -45,7 +45,7 @@ defmodule Oliya.Retriever do
   end
 
   defp backend do
-    Application.get_env(:oliya, :fetcher_backend, Oliya.Retriever.Postgres.Retriever)
+    Application.get_env(:oliya, :backend, Oliya.Backend.Postgres)
   end
 
   defp to_datetime(timestamp),

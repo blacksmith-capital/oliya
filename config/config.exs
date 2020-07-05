@@ -7,9 +7,9 @@
 # General application configuration
 use Mix.Config
 
-config :oliya, ecto_repos: [Oliya.Repo]
+config :oliya, ecto_repos: [Oliya.Backend.Postgres.Repo]
 
-config :oliya, Oliya.Repo,
+config :oliya, Oliya.Backend.Postgres.Repo,
   username: {:system, "POSTGRES_USER", "postgres"},
   password: {:system, "POSTGRES_PASSWORD", "postgres"},
   database: {:system, "POSTGRES_DB", "likhtar_dev"},

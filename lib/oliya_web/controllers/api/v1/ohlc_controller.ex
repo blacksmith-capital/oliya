@@ -1,6 +1,6 @@
 defmodule OliyaWeb.Api.V1.OhlcController do
   use OliyaWeb, :controller
-  alias Oliya.Retriever
+  alias Oliya.Backend.Retriever
 
   def index(conn, params) do
     {:ok, data} =

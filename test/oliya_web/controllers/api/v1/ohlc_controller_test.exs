@@ -12,7 +12,7 @@ defmodule OliyaWeb.Api.V1.OhlcControllerTest do
       insert into trades (venue, symbol, timestamp, price, volume, side, inserted_at, updated_at)
       values ('bitmex', 'xbtusd', '#{time_str}', 8000.5,100,true,now(), now());
       """
-      |> Oliya.Repo.query()
+      |> Repo.query()
 
     venue = "bitmex"
     symbol = "xbtusd"

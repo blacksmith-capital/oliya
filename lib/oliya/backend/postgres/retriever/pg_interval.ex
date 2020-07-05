@@ -1,4 +1,4 @@
-defmodule Oliya.Retriever.Postgres.PgInterval do
+defmodule Oliya.Backend.Postgres.Retriever.PgInterval do
   @moduledoc """
   Handles string to postgres interval conversion
   """

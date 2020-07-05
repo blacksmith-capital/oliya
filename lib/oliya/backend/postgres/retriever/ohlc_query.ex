@@ -1,6 +1,6 @@
-defmodule Oliya.Retriever.Postgres.OhlcQuery do
-  alias Oliya.Repo
-  alias Oliya.Retriever.Postgres.{IntervalRounder, PgInterval}
+defmodule Oliya.Backend.Postgres.Retriever.OhlcQuery do
+  alias Oliya.Backend.Postgres.Repo
+  alias Oliya.Backend.Postgres.Retriever.{IntervalRounder, PgInterval}
 
   defmodule Response do
     defstruct ~w(columns data meta)a

@@ -1,6 +1,6 @@
-defmodule Oliya.Retriever.Postgres.PgIntervalTest do
+defmodule Oliya.Backend.Postgres.Retriever.PgIntervalTest do
   use ExUnit.Case, async: true
-  alias Oliya.Retriever.Postgres.PgInterval
+  alias Oliya.Backend.Postgres.Retriever.PgInterval
 
   test "it converts" do
     assert PgInterval.from_string("1m") == %Postgrex.Interval{secs: 60}

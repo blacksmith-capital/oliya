@@ -1,7 +1,7 @@
-defmodule Oliya.Retriever.Postgres.Retriever do
-  alias Oliya.Retriever.Postgres.OhlcQuery
+defmodule Oliya.Backend.Postgres.Retriever do
+  alias Oliya.Backend.Postgres.Retriever.OhlcQuery
 
-  alias Oliya.Retriever
+  alias Oliya.Backend.Retriever
 
   @behaviour Retriever
 
