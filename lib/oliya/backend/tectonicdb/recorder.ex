@@ -4,7 +4,7 @@ defmodule Oliya.Backend.Tectonicdb.Recorder do
 
   @impl Backend
   def insert(event) do
-    conn = Process.whereis(Oliya.Backend.Tectonicdb)
+    conn = Process.whereis(Oliya.Backend.Tectonicdb.to_name())
     event |> to_model |> do_insert(conn)
   end
 

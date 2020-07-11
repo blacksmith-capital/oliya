@@ -17,5 +17,9 @@ defmodule Oliya.Backend.Postgres do
     Supervisor.init(children, strategy: :one_for_one)
   end
 
+  def to_name do
+    __MODULE__.Repo
+  end
+
   defdelegate insert(event), to: __MODULE__.Recorder
 end

@@ -71,5 +71,5 @@ defmodule Oliya.Backend.Postgres.Recorder do
     end
   end
 
-  defp pg_insert(e), do: Oliya.Backend.Postgres.Repo.insert(e)
+  defp pg_insert(e), do: Oliya.Backend.Postgres.to_name().insert(e)
 end

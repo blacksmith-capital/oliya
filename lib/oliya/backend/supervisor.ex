@@ -7,8 +7,8 @@ defmodule Oliya.Backend.Supervisor do
 
   def init(_) do
     children = [
-      {Oliya.Backend.Recorder, [backend: backend()]},
-      backend()
+      backend(),
+      {Oliya.Backend.Recorder, [backend: backend()]}
     ]
 
     Supervisor.init(children, strategy: :one_for_one)
