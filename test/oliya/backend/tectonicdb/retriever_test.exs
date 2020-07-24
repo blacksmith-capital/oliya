@@ -18,7 +18,7 @@ defmodule Oliya.Backend.Tectonicdb.RetrieverTest do
     conn = Process.whereis(Oliya.Backend.Tectonicdb.reader_name())
     db = Oliya.Backend.Tectonicdb.Recorder.db_name(context.venue, context.symbol)
 
-    case ExTectonicdb.Commands.exists?(conn, "default") do
+    case ExTectonicdb.Commands.exists?(conn, db) do
       {:error, :db_not_found} -> ExTectonicdb.Commands.create(conn, db)
       _ -> nil
     end
@@ -28,7 +28,7 @@ defmodule Oliya.Backend.Tectonicdb.RetrieverTest do
     context
   end
 
-  test "nada", %{backend: backend, venue: venue, symbol: symbol} do
+  test "tectonic db insert and get", %{backend: backend, venue: venue, symbol: symbol} do
     backend.insert(
       trade_event(%{
         price: 1001.0,
