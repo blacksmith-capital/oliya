@@ -27,5 +27,5 @@ defmodule Oliya.Backend.Tectonicdb.Retriever do
     {:ok, response}
   end
 
-  defp conn(), do: Process.whereis(Oliya.Backend.Tectonicdb.to_name())
+  defp conn(), do: Process.whereis(Oliya.Backend.Tectonicdb.reader_name())
 end

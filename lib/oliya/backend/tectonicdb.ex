@@ -13,11 +13,16 @@ defmodule Oliya.Backend.Tectonicdb do
   end
 
   def init(_args) do
-    children = [worker(ExTectonicdb, [[name: to_name()]])]
+    children = [
+      worker(ExTectonicdb, [[name: reader_name()]], id: reader_name()),
+      worker(ExTectonicdb, [[name: writer_name()]], id: writer_name())
+    ]
+
     Supervisor.init(children, strategy: :one_for_one)
   end
 
-  def to_name, do: :tectonicdb_backend
+  def writer_name, do: :tectonicdb_writer
+  def reader_name, do: :tectonicdb_reader
 
   defdelegate insert(event), to: __MODULE__.Recorder
 end

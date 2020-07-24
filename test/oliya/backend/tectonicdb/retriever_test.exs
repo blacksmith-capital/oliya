@@ -15,7 +15,7 @@ defmodule Oliya.Backend.Tectonicdb.RetrieverTest do
   end
 
   setup context do
-    conn = Process.whereis(Oliya.Backend.Tectonicdb.to_name())
+    conn = Process.whereis(Oliya.Backend.Tectonicdb.reader_name())
     db = Oliya.Backend.Tectonicdb.Recorder.db_name(context.venue, context.symbol)
 
     case ExTectonicdb.Commands.exists?(conn, "default") do
