@@ -57,7 +57,7 @@ defmodule Oliya.Backend.Postgres.Recorder do
   defp to_price(v), do: Ecto.Type.cast(:float, v) |> elem(1)
   defp to_volume(%Decimal{} = v), do: v |> Decimal.to_float()
   defp to_volume(v), do: Ecto.Type.cast(:float, v) |> elem(1)
-  defp to_timestamp(v), do: Ecto.Type.cast(:utc_datetime_usec, v) |> elem(1)
+  defp to_timestamp(v), do: v |> DateTime.from_unix!(:microsecond)
   defp to_side(:buy), do: true
   defp to_side(:sell), do: false
   defp to_venue_trade_id(s) when is_integer(s), do: Integer.to_string(s)

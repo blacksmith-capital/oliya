@@ -20,7 +20,7 @@ defmodule Oliya.Backend.Tectonicdb.Recorder do
        })
        when not is_nil(timestamp) do
     model = %ExTectonicdb.Dtf{
-      timestamp: timestamp |> DateTime.to_unix(:microsecond),
+      timestamp: timestamp,
       seq: 0,
       is_trade: true,
       is_bid: to_side(side),

@@ -38,7 +38,11 @@ defmodule Oliya.Backend.Recorder do
   @type order_event :: {:change_set, map}
   @spec handle_info(trade_event | order_event, state) :: {:noreply, state}
   def handle_info({TaiEvents.Event, event, _level}, %{backend: backend} = state) do
-    {:ok, _model} = backend.insert(event)
+    {:ok, _model} =
+      event
+      |> Map.update!(:timestamp, &DateTime.to_unix(&1, :microsecond))
+      |> backend.insert()
+
     {:noreply, state}
   end
 

@@ -34,7 +34,7 @@ defmodule Oliya.Backend.Tectonicdb.RetrieverTest do
         price: 1001.0,
         venue_id: venue,
         symbol: symbol,
-        timestamp: ~U(2000-01-01 22:59:59.000000Z),
+        timestamp: ~U(2000-01-01 22:59:59.000000Z) |> DateTime.to_unix(:microsecond),
         size: 2
       })
     )
@@ -75,7 +75,7 @@ defmodule Oliya.Backend.Tectonicdb.RetrieverTest do
       qty: 1.0,
       venue_id: :custom_venue,
       symbol: :btc_usd,
-      timestamp: ~U(2000-01-01 23:00:01.000000Z),
+      timestamp: ~U(2000-01-01 23:00:01.000000Z) |> DateTime.to_unix(:microsecond),
       taker_side: :buy,
       venue_trade_id: 1
     }
