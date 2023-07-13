@@ -38,7 +38,7 @@ jobs:
         with:
           CACHE_VERSION: 'Fc2TkIVZ2yVGdEEP'
 
-      - uses: actions/setup-elixir@v1.2.0
+      - uses: erlef/setup-beam@v1
         with:
           otp-version: ${{matrix.otp}}
           elixir-version: ${{matrix.elixir}}
