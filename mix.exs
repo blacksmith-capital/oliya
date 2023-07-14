@@ -59,7 +59,13 @@ defmodule Oliya.MixProject do
     ]
   end
 
-  defp aliases, do: [test: "test --no-start"]
+  defp aliases do
+    [
+      test: "test --no-start",
+      "ecto.setup": ["ecto.create", "ecto.migrate"],
+      setup: ["deps.get", "ecto.setup"]
+    ]
+  end
 
   defp package do
     %{
