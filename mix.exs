@@ -9,7 +9,6 @@ defmodule Oliya.MixProject do
       elixir: "~> 1.8",
       package: package(),
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       dialyzer: dialyzer()
