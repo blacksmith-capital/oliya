@@ -29,7 +29,7 @@ defmodule Oliya.MixProject do
     [
       {:ex_tectonicdb, "~> 0.1.0"},
       {:dialyxir, "~> 1.0", only: :dev, runtime: false},
-      {:phoenix, "~> 1.5.0"},
+      {:phoenix, "~> 1.7.7"},
       {:phoenix_pubsub, "~> 2.0"},
       {:phoenix_html, "~> 3.3"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
