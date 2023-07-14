@@ -1,1 +1,2 @@
 lib/oliya_web/channels/instrument_channel.ex
+lib/oliya/release.ex
