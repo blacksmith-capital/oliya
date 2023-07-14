@@ -12,7 +12,7 @@ config :oliya, ecto_repos: [Oliya.Backend.Postgres.Repo]
 config :oliya, Oliya.Backend.Postgres.Repo,
   username: {:system, "POSTGRES_USER", "postgres"},
   password: {:system, "POSTGRES_PASSWORD", "postgres"},
-  database: {:system, "POSTGRES_DB", "likhtar_dev"},
+  database: {:system, "POSTGRES_DB", "oliya_dev"},
   hostname: {:system, "POSTGRES_HOST", "localhost"},
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
