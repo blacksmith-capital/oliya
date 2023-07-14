@@ -9,8 +9,8 @@ defmodule Oliya.Backend.Postgres.Recorder do
     schema "trades" do
       field(:venue, :string)
       field(:symbol, :string)
-      field(:price, :float)
-      field(:volume, :float)
+      field(:price, :decimal)
+      field(:volume, :decimal)
       field(:timestamp, :utc_datetime_usec)
       field(:side, :boolean)
       field(:venue_trade_id, :string)
@@ -31,8 +31,8 @@ defmodule Oliya.Backend.Postgres.Recorder do
     struct!(Trade, %{
       venue: venue_id |> Atom.to_string(),
       symbol: instrument |> Atom.to_string(),
-      price: price |> to_price(),
-      volume: volume |> to_volume(),
+      price: price,
+      volume: volume,
       timestamp: timestamp |> to_timestamp(),
       side: side |> to_side(),
       venue_trade_id: venue_trade_id |> to_venue_trade_id
@@ -53,10 +53,6 @@ defmodule Oliya.Backend.Postgres.Recorder do
     :skip
   end
 
-  defp to_price(%Decimal{} = v), do: v |> Decimal.to_float()
-  defp to_price(v), do: Ecto.Type.cast(:float, v) |> elem(1)
-  defp to_volume(%Decimal{} = v), do: v |> Decimal.to_float()
-  defp to_volume(v), do: Ecto.Type.cast(:float, v) |> elem(1)
   defp to_timestamp(v), do: v |> DateTime.from_unix!(:microsecond)
   defp to_side(:buy), do: true
   defp to_side(:sell), do: false
