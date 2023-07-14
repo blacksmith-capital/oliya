@@ -51,7 +51,6 @@ defmodule Oliya.MixProject do
       flags: [
         :unmatched_returns,
         :error_handling,
-        :race_conditions,
         :underspecs,
         :no_opaque
       ],
