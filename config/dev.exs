@@ -50,7 +50,12 @@ config :oliya, OliyaWeb.Endpoint,
       ~r"lib/oliya_web/{live,views}/.*(ex)$",
       ~r"lib/oliya_web/templates/.*(eex)$"
     ]
-  ]
+  ],
+  url: [host: "localhost"],
+  secret_key_base: "SgXgylgGEwMBEiPY5Wrsg3qXAWZgfB8D+Fkd7Sy9uRer1rm8Ttdqbj6+cM1BK5Re",
+  render_errors: [view: OliyaWeb.ErrorView, accepts: ~w(html json)],
+  pubsub_server: Oliya.PubSub,
+  live_view: [signing_salt: "SgXgylgGEwMBEiPY5Wrsg3qXAWZgfB8D+Fkd7Sy9uRer1rm8Ttdqbj6+cM1BK5Re"]
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
