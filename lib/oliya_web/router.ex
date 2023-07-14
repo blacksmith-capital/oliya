@@ -1,5 +1,6 @@
 defmodule OliyaWeb.Router do
   use OliyaWeb, :router
+  import Phoenix.LiveDashboard.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -24,6 +25,13 @@ defmodule OliyaWeb.Router do
 
     scope "/v1", V1 do
       get "/ohlc", OhlcController, :index
+    end
+  end
+
+  if Mix.env() == :dev do
+    scope "/" do
+      pipe_through :browser
+      live_dashboard "/dashboard"
     end
   end
 end

@@ -27,19 +27,21 @@ defmodule Oliya.MixProject do
 
   defp deps do
     [
-      {:ex_tectonicdb, "~> 0.1.0"},
       {:dialyxir, "~> 1.0", only: :dev, runtime: false},
-      {:phoenix, "~> 1.5.0"},
-      {:phoenix_pubsub, "~> 2.0"},
-      {:phoenix_html, "~> 3.3"},
-      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:ecto_sql, "~> 3.0"},
+      {:ex_tectonicdb, "~> 0.1.0"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"},
-      {:ecto_sql, "~> 3.0"},
-      {:postgrex, ">= 0.0.0"},
-      {:mapail, "~> 1.0"},
       {:logger_file_backend, "~> 0.0.10"},
+      {:mapail, "~> 1.0"},
+      {:phoenix_html, "~> 3.3"},
+      {:phoenix_view, "~> 2.0"},
+      {:phoenix_live_dashboard, "~> 0.7"},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:phoenix_pubsub, "~> 2.0"},
+      {:phoenix, "~> 1.7"},
+      {:plug_cowboy, "~> 2.0"},
+      {:postgrex, ">= 0.0.0"},
       # {:tai, git: "https://github.com/yurikoval/tai.git", branch: "master", sparse: "apps/tai"}
       {:tai, "~> 0.0.57"}
     ]
