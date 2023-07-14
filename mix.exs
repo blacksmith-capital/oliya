@@ -31,7 +31,7 @@ defmodule Oliya.MixProject do
       {:dialyxir, "~> 1.0", only: :dev, runtime: false},
       {:phoenix, "~> 1.5.0"},
       {:phoenix_pubsub, "~> 2.0"},
-      {:phoenix_html, "~> 2.11"},
+      {:phoenix_html, "~> 3.3"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
