@@ -8,11 +8,17 @@ Oliya is a Phoenix app built with [tai](https://github.com/fremantle-capital/tai
 
 To start your Phoenix server:
 
-  * Install dependencies with `mix deps.get`
+  * Install dependencies with `mix deps`
+  * Run setup `mix setup`
   * Install Node.js dependencies with `cd assets && npm install`
   * Start Phoenix endpoint with `mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+
+# Deploy to fly.io
+
+* `fly launch`
+* `fly deploy --build-secret SECRET_KEY_BASE="GENERATED_SECRET"`
 
 # TODO
 

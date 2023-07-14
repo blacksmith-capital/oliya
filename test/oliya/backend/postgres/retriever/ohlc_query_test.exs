@@ -6,7 +6,7 @@ defmodule Oliya.Backend.Postgres.Retriever.OhlcQueryTest do
     instrument = "xbtusd"
     from_timestamp = ~U(2000-01-01 23:00:01.000000Z)
     to_timestamp = ~U(2000-01-01 23:00:02.000000Z)
-    add_trade(price: 1000.0, timestamp: from_timestamp)
+    add_trade(price: 1000.01, timestamp: from_timestamp)
 
     assert {:ok, %{data: data}, {~U(2000-01-01 23:00:00Z), ~U(2000-01-01 23:01:00Z)}} =
              OhlcQuery.get(%{
@@ -17,7 +17,13 @@ defmodule Oliya.Backend.Postgres.Retriever.OhlcQueryTest do
                symbol: instrument
              })
 
-    assert [[~N[2000-01-01 23:00:00.000000], 1.0e3, 1.0e3, 1.0e3, 1.0e3, 100.0]] = data
+    [timestamp, o, h, l, c, v] = data |> List.first()
+    assert timestamp == ~N[2000-01-01 23:00:00.000000]
+    assert o == Decimal.new("1000.01")
+    assert h == Decimal.new("1000.01")
+    assert l == Decimal.new("1000.01")
+    assert c == Decimal.new("1000.01")
+    assert v == Decimal.new("100")
   end
 
   def add_trade(keywordlist) do
