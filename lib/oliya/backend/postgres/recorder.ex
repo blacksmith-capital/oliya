@@ -7,8 +7,8 @@ defmodule Oliya.Backend.Postgres.Recorder do
     use Ecto.Schema
 
     schema "trades" do
-      field(:venue, :string)
-      field(:symbol, :string)
+      field(:venue, Oliya.Backend.Types.AtomType)
+      field(:symbol, Oliya.Backend.Types.AtomType)
       field(:price, :decimal)
       field(:volume, :decimal)
       field(:timestamp, :utc_datetime_usec)
@@ -29,8 +29,8 @@ defmodule Oliya.Backend.Postgres.Recorder do
          venue_trade_id: venue_trade_id
        }) do
     struct!(Trade, %{
-      venue: venue_id |> Atom.to_string(),
-      symbol: instrument |> Atom.to_string(),
+      venue: venue_id,
+      symbol: instrument,
       price: price,
       volume: volume,
       timestamp: timestamp |> to_timestamp(),
