@@ -18,7 +18,7 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 # Deploy to fly.io
 
 * `fly launch`
-* `fly deploy`
+* `fly deploy --build-secret SECRET_KEY_BASE="GENERATED_SECRET"`
 
 # TODO
 
