@@ -22,7 +22,7 @@ config :oliya, OliyaWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "SgXgylgGEwMBEiPY5Wrsg3qXAWZgfB8D+Fkd7Sy9uRer1rm8Ttdqbj6+cM1BK5Re",
   render_errors: [view: OliyaWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Oliya.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub_server: Oliya.PubSub
 
 # Configures Elixir's Logger
 config :logger, :console,
