@@ -5,7 +5,7 @@ defmodule OliyaWeb.Api.V1.OhlcControllerTest do
 
   test "#index fetches" do
     conn = build_conn()
-    time_str = '2019-01-01 00:00:00'
+    time_str = ~c"2019-01-01 00:00:00"
 
     {:ok, %Postgrex.Result{num_rows: 1}} =
       ~s"""
