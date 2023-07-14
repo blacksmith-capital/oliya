@@ -6,6 +6,7 @@ defmodule Oliya.Application do
   def start(_type, _args) do
     children = [
       {Oliya.Backend.Supervisor, []},
+      {Phoenix.PubSub, [name: Oliya.PubSub, adapter: Phoenix.PubSub.PG2]},
       OliyaWeb.Endpoint
     ]
 

@@ -9,7 +9,6 @@ defmodule Oliya.MixProject do
       elixir: "~> 1.8",
       package: package(),
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       dialyzer: dialyzer()
@@ -30,8 +29,8 @@ defmodule Oliya.MixProject do
     [
       {:ex_tectonicdb, "~> 0.1.0"},
       {:dialyxir, "~> 1.0", only: :dev, runtime: false},
-      {:phoenix, "~> 1.4.7"},
-      {:phoenix_pubsub, "~> 1.1"},
+      {:phoenix, "~> 1.5.0"},
+      {:phoenix_pubsub, "~> 2.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
@@ -52,7 +51,6 @@ defmodule Oliya.MixProject do
       flags: [
         :unmatched_returns,
         :error_handling,
-        :race_conditions,
         :underspecs,
         :no_opaque
       ],

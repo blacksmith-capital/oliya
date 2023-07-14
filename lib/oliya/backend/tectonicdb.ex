@@ -14,8 +14,14 @@ defmodule Oliya.Backend.Tectonicdb do
 
   def init(_args) do
     children = [
-      worker(ExTectonicdb, [[name: reader_name()]], id: reader_name()),
-      worker(ExTectonicdb, [[name: writer_name()]], id: writer_name())
+      %{
+        id: reader_name(),
+        start: {ExTectonicdb, :start_link, [[name: reader_name()]]}
+      },
+      %{
+        id: writer_name(),
+        start: {ExTectonicdb, :start_link, [[name: writer_name()]]}
+      }
     ]
 
     Supervisor.init(children, strategy: :one_for_one)

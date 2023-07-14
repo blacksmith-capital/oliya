@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 config :logger, :file_log, path: "./log/#{Mix.env()}.log"
 

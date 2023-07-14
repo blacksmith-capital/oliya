@@ -13,7 +13,7 @@ defmodule Oliya.Backend.Postgres do
   end
 
   def init(args) do
-    children = [worker(__MODULE__.Repo, [args])]
+    children = [{__MODULE__.Repo, args}]
     Supervisor.init(children, strategy: :one_for_one)
   end
 

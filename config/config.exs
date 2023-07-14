@@ -5,14 +5,14 @@
 # is restricted to this project.
 
 # General application configuration
-use Mix.Config
+import Config
 
 config :oliya, ecto_repos: [Oliya.Backend.Postgres.Repo]
 
 config :oliya, Oliya.Backend.Postgres.Repo,
   username: {:system, "POSTGRES_USER", "postgres"},
   password: {:system, "POSTGRES_PASSWORD", "postgres"},
-  database: {:system, "POSTGRES_DB", "likhtar_dev"},
+  database: {:system, "POSTGRES_DB", "oliya_dev"},
   hostname: {:system, "POSTGRES_HOST", "localhost"},
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -22,7 +22,7 @@ config :oliya, OliyaWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "SgXgylgGEwMBEiPY5Wrsg3qXAWZgfB8D+Fkd7Sy9uRer1rm8Ttdqbj6+cM1BK5Re",
   render_errors: [view: OliyaWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Oliya.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub_server: Oliya.PubSub
 
 # Configures Elixir's Logger
 config :logger, :console,
