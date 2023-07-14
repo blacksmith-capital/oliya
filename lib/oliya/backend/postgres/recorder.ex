@@ -6,13 +6,15 @@ defmodule Oliya.Backend.Postgres.Recorder do
     @moduledoc false
     use Ecto.Schema
 
+    alias Oliya.Backend.Types
+
     schema "trades" do
-      field(:venue, Oliya.Backend.Types.AtomType)
-      field(:symbol, Oliya.Backend.Types.AtomType)
+      field(:venue, Types.AtomType)
+      field(:symbol, Types.AtomType)
       field(:price, :decimal)
       field(:volume, :decimal)
       field(:timestamp, :utc_datetime_usec)
-      field(:side, :boolean)
+      field(:side, Types.TradingSideType)
       field(:venue_trade_id, :string)
 
       timestamps()
@@ -34,7 +36,7 @@ defmodule Oliya.Backend.Postgres.Recorder do
       price: price,
       volume: volume,
       timestamp: timestamp |> to_timestamp(),
-      side: side |> to_side(),
+      side: side,
       venue_trade_id: venue_trade_id |> to_venue_trade_id
     })
   end
@@ -54,8 +56,6 @@ defmodule Oliya.Backend.Postgres.Recorder do
   end
 
   defp to_timestamp(v), do: v |> DateTime.from_unix!(:microsecond)
-  defp to_side(:buy), do: true
-  defp to_side(:sell), do: false
   defp to_venue_trade_id(s) when is_integer(s), do: Integer.to_string(s)
   defp to_venue_trade_id(s), do: s
 
