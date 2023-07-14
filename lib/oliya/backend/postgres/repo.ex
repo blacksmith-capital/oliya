@@ -4,9 +4,12 @@ defmodule Oliya.Backend.Postgres.Repo do
     adapter: Ecto.Adapters.Postgres
 
   def init(_type, config) do
-    case Mix.env() do
-      :prod -> {:ok, Keyword.put(config, :url, System.get_env("DATABASE_URL"))}
-      _ -> {:ok, build_config(config)}
+    case System.fetch_env("DATABASE_URL") do
+      {:ok, url} ->
+        {:ok, Keyword.put(config, :url, url)}
+
+      :error ->
+        {:ok, build_config(config)}
     end
   end
 
