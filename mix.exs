@@ -34,7 +34,7 @@ defmodule Oliya.MixProject do
       {:jason, "~> 1.0"},
       {:logger_file_backend, "~> 0.0.10"},
       {:mapail, "~> 1.0"},
-      {:phoenix_html, "~> 3.3"},
+      {:phoenix_html, "~> 4.1"},
       {:phoenix_view, "~> 2.0"},
       {:phoenix_live_dashboard, "~> 0.7"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
