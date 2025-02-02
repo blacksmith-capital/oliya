@@ -56,7 +56,7 @@ defmodule Oliya.MixProject do
         :underspecs,
         :no_opaque
       ],
-      plt_add_deps: :transitive,
+      plt_add_apps: [:mix],
       ignore_warnings: "dialyzer.ignore-warnings"
     ]
   end
