@@ -17,11 +17,11 @@ jobs:
 
     strategy:
       matrix:
-        otp: [25.x, 26.x]
+        otp: [25.x]
         elixir: [1.15.x]
 
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4
       - uses: erlef/setup-beam@v1
         with:
           otp-version: ${{matrix.otp}}
