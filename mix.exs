@@ -43,8 +43,7 @@ defmodule Oliya.MixProject do
       {:phoenix, "~> 1.7"},
       {:plug_cowboy, "~> 2.0"},
       {:postgrex, ">= 0.0.0"},
-      # {:tai, git: "https://github.com/yurikoval/tai.git", branch: "master", sparse: "apps/tai"}
-      {:tai, "~> 0.0.57"}
+      {:tai, github: "yurikoval/tai", branch: "main", sparse: "apps/tai"}
     ]
   end
 
