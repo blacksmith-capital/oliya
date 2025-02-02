@@ -20,9 +20,9 @@ defmodule OliyaWeb do
   def controller do
     quote do
       use Phoenix.Controller, namespace: OliyaWeb
+      use Gettext, backend: OliyaWeb.Gettext
 
       import Plug.Conn
-      import OliyaWeb.Gettext
       alias OliyaWeb.Router.Helpers, as: Routes
     end
   end
@@ -38,9 +38,9 @@ defmodule OliyaWeb do
 
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
+      use Gettext, backend: OliyaWeb.Gettext
 
       import OliyaWeb.ErrorHelpers
-      import OliyaWeb.Gettext
       alias OliyaWeb.Router.Helpers, as: Routes
     end
   end
@@ -56,7 +56,7 @@ defmodule OliyaWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import OliyaWeb.Gettext
+      use Gettext, backend: OliyaWeb.Gettext
     end
   end
 
