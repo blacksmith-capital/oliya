@@ -32,7 +32,7 @@ defmodule Oliya.MixProject do
       {:ex_tectonicdb, "~> 0.1.0"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:logger_file_backend, "~> 0.0.10"},
+      {:logger_file_backend, "~> 0.1.1"},
       {:mapail, "~> 1.0"},
       {:phoenix_html, "~> 4.1"},
       {:phoenix_html_helpers, "~> 1.0"},
