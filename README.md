@@ -6,14 +6,23 @@ Oliya is a Phoenix app built with [tai](https://github.com/fremantle-capital/tai
 
 [![Build Status](https://github.com/blacksmith-capital/oliya/workflows/Test/badge.svg)](https://github.com/blacksmith-capital/oliya/actions?query=workflow%3ATest)
 
-To start your Phoenix server:
+## Development
 
-  * Install dependencies with `mix deps`
-  * Run setup `mix setup`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+Install the tool versions from `.tool-versions`, then set up the application:
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+```sh
+docker compose up -d
+mix setup
+mix phx.server
+```
+
+Visit [`localhost:4000`](http://localhost:4000) in your browser.
+
+Run the same validation used by CI before committing:
+
+```sh
+bin/check
+```
 
 # Deploy to fly.io
 

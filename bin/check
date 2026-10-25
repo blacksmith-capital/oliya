@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+docker compose up -d
+
+postgres_ready() {
+  docker compose exec -T postgres pg_isready -U postgres >/dev/null 2>&1
+}
+
+tectonicdb_ready() {
+  (echo >/dev/tcp/127.0.0.1/9001) >/dev/null 2>&1
+}
+
+wait_for() {
+  local name=$1
+  local check=$2
+
+  for ((attempt = 1; attempt <= 60; attempt++)); do
+    if "$check"; then
+      return
+    fi
+    sleep 1
+  done
+
+  echo "$name did not become ready within 60 seconds" >&2
+  exit 1
+}
+
+wait_for PostgreSQL postgres_ready
+wait_for TectonicDB tectonicdb_ready
+
+mix deps.get
+MIX_ENV=test mix ecto.create
+MIX_ENV=test mix ecto.migrate
+MIX_ENV=dev mix compile --warnings-as-errors
+MIX_ENV=test mix compile --warnings-as-errors
+mix format --check-formatted
+MIX_ENV=test mix test --trace
+MIX_ENV=dev mix dialyzer
