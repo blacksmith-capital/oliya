@@ -1,22 +1,30 @@
-# Find eligible builder and runner images on Docker Hub. We use Ubuntu/Debian
+# Find eligible builder and runner images on Docker Hub. We use Debian
 # instead of Alpine to avoid DNS resolution issues in production.
 #
-# https://hub.docker.com/r/hexpm/elixir/tags?page=1&name=ubuntu
-# https://hub.docker.com/_/ubuntu?tab=tags
+# https://hub.docker.com/r/hexpm/elixir/tags?page=1&name=debian
+# https://hub.docker.com/_/debian?tab=tags
 #
 # This file is based on these images:
 #
-#   - https://hub.docker.com/r/hexpm/elixir/tags - for the build image
-#   - https://hub.docker.com/_/debian?tab=tags&page=1&name=bullseye-20230612-slim - for the release image
-#   - https://pkgs.org/ - resource for finding needed packages
-#   - Ex: hexpm/elixir:1.15.2-erlang-26.0.2-debian-bullseye-20230612-slim
+#   - https://hub.docker.com/_/node - for the asset build image
+#   - https://hub.docker.com/r/hexpm/elixir/tags - for the application build image
+#   - https://hub.docker.com/_/debian?tab=tags - for the release image
 #
-ARG ELIXIR_VERSION=1.15.2
-ARG OTP_VERSION=26.0.2
-ARG DEBIAN_VERSION=bullseye-20230612-slim
+ARG ELIXIR_VERSION=1.20.4
+ARG OTP_VERSION=29.1.2
+ARG NODE_VERSION=26.12.1
+ARG DEBIAN_VERSION=bookworm-20261020-slim
 
 ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
 ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
+
+FROM node:${NODE_VERSION}-bookworm-slim AS assets
+
+WORKDIR /app/assets
+COPY assets/package.json assets/package-lock.json ./
+RUN npm ci
+COPY assets ./
+RUN npm run build
 
 FROM ${BUILDER_IMAGE} as builder
 
@@ -46,13 +54,10 @@ COPY config/config.exs config/${MIX_ENV}.exs config/
 RUN --mount=type=secret,id=SECRET_KEY_BASE SECRET_KEY_BASE="$(cat /run/secrets/SECRET_KEY_BASE)" mix deps.compile
 
 COPY priv priv
+COPY --from=assets /app/priv/static priv/static
 
 COPY lib lib
 
-COPY assets assets
-
-# compile assets
-# RUN mix assets.deploy
 RUN --mount=type=secret,id=SECRET_KEY_BASE SECRET_KEY_BASE="$(cat /run/secrets/SECRET_KEY_BASE)" mix phx.digest
 
 # Compile the release

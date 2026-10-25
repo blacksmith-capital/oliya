@@ -32,6 +32,12 @@ wait_for PostgreSQL postgres_ready
 wait_for TectonicDB tectonicdb_ready
 
 mix deps.get
+(
+  cd assets
+  npm ci
+  npm run lint
+  npm run build
+)
 MIX_ENV=test mix ecto.create
 MIX_ENV=test mix ecto.migrate
 MIX_ENV=dev mix compile --warnings-as-errors

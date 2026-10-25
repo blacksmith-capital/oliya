@@ -33,8 +33,8 @@ defmodule Oliya.Backend.Postgres.Recorder do
     struct!(Trade, %{
       venue: venue_id,
       symbol: instrument,
-      price: price,
-      volume: volume,
+      price: to_decimal(price),
+      volume: to_decimal(volume),
       timestamp: timestamp |> to_timestamp(),
       side: side,
       venue_trade_id: venue_trade_id |> to_venue_trade_id
@@ -55,6 +55,8 @@ defmodule Oliya.Backend.Postgres.Recorder do
     :skip
   end
 
+  defp to_decimal(value) when is_binary(value), do: Decimal.new(value)
+  defp to_decimal(value), do: value
   defp to_timestamp(v), do: v |> DateTime.from_unix!(:microsecond)
   defp to_venue_trade_id(s) when is_integer(s), do: Integer.to_string(s)
   defp to_venue_trade_id(s), do: s
