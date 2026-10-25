@@ -8,15 +8,6 @@ mix.setPublicPath('../priv/static')
   .version()
   .copyDirectory('./static', '../priv/static')
   .webpackConfig({
-    module: {
-      rules: [
-        {
-          test: /\.vue$/,
-          include: path.resolve(__dirname, 'node_modules/likhtar'),
-          loader: 'vue-loader'
-        }
-      ]
-    },
     resolve: {
       extensions: ['.vue', '.js'],
       alias: {

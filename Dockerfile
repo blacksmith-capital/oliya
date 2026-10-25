@@ -11,10 +11,19 @@
 #
 ARG ELIXIR_VERSION=1.20.4
 ARG OTP_VERSION=29.1.2
+ARG NODE_VERSION=26.12.1
 ARG DEBIAN_VERSION=bookworm-20261020-slim
 
 ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
 ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
+
+FROM node:${NODE_VERSION}-bookworm-slim AS assets
+
+WORKDIR /app/assets
+COPY assets/package.json assets/package-lock.json ./
+RUN npm ci
+COPY assets ./
+RUN npm run build
 
 FROM ${BUILDER_IMAGE} as builder
 
@@ -44,13 +53,11 @@ COPY config/config.exs config/${MIX_ENV}.exs config/
 RUN --mount=type=secret,id=SECRET_KEY_BASE SECRET_KEY_BASE="$(cat /run/secrets/SECRET_KEY_BASE)" mix deps.compile
 
 COPY priv priv
+COPY --from=assets /app/priv/static priv/static
 
 COPY lib lib
 
-COPY assets assets
-
 # compile assets
-# RUN mix assets.deploy
 RUN --mount=type=secret,id=SECRET_KEY_BASE SECRET_KEY_BASE="$(cat /run/secrets/SECRET_KEY_BASE)" mix phx.digest
 
 # Compile the release
