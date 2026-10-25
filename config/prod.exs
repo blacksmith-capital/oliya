@@ -10,6 +10,7 @@ secret_key_base =
 config :oliya, OliyaWeb.Endpoint,
   cache_static_manifest: "priv/static/cache_manifest.json",
   http: [:inet6, port: String.to_integer(System.get_env("PORT") || "4000")],
+  pubsub_server: Oliya.PubSub,
   secret_key_base: secret_key_base,
   url: [host: System.get_env("PHX_HOST"), port: 80],
   force_ssl: [
