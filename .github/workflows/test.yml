@@ -54,28 +54,8 @@ jobs:
             test-build-elixir-${{secrets.CACHE_VERSION}}-${{matrix.elixir}}-otp-${{matrix.otp}}-${{runner.os}}-${{hashFiles('mix.lock')}}-${{github.ref}}
             test-build-elixir-${{secrets.CACHE_VERSION}}-${{matrix.elixir}}-otp-${{matrix.otp}}-${{runner.os}}-${{hashFiles('mix.lock')}}-
 
-      - name: Install Dependencies
-        run: mix deps.get
-
-      - name: Start Docker
-        run: docker compose up --detach
-
-      - name: Test
-        run: |
-          mix compile --warnings-as-errors
-          mix format --check-formatted
-          mix ecto.create
-          mix ecto.migrate
-          mix test --trace
-        env:
-          MIX_ENV: test
-          POSTGRES_PORT: 5432
-          POSTGRES_DB: postgres
-
-      - name: Dialyzer
-        run: |
-          mix compile --warnings-as-errors
-          mix dialyzer --halt-exit-status
+      - name: Check
+        run: bin/check
 
   dependabot:
     needs: test

@@ -65,7 +65,7 @@ defmodule Oliya.MixProject do
     [
       test: "test --no-start",
       "ecto.setup": ["ecto.create", "ecto.migrate"],
-      setup: ["deps.get", "ecto.setup", "cmd --cd assets npm install"],
+      setup: ["deps.get", "ecto.setup", "cmd --cd assets npm ci"],
       "assets.deploy": ["cmd --cd assets node build.js --deploy", "phx.digest"]
     ]
   end
