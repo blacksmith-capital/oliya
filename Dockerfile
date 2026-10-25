@@ -1,12 +1,13 @@
-# Find eligible builder and runner images on Docker Hub. We use Ubuntu/Debian
+# Find eligible builder and runner images on Docker Hub. We use Debian
 # instead of Alpine to avoid DNS resolution issues in production.
 #
-# https://hub.docker.com/r/hexpm/elixir/tags?page=1&name=ubuntu
+# https://hub.docker.com/r/hexpm/elixir/tags?page=1&name=debian
 # https://hub.docker.com/_/debian?tab=tags
 #
 # This file is based on these images:
 #
-#   - https://hub.docker.com/r/hexpm/elixir/tags - for the build image
+#   - https://hub.docker.com/_/node - for the asset build image
+#   - https://hub.docker.com/r/hexpm/elixir/tags - for the application build image
 #   - https://hub.docker.com/_/debian?tab=tags - for the release image
 #
 ARG ELIXIR_VERSION=1.20.4
@@ -57,7 +58,6 @@ COPY --from=assets /app/priv/static priv/static
 
 COPY lib lib
 
-# compile assets
 RUN --mount=type=secret,id=SECRET_KEY_BASE SECRET_KEY_BASE="$(cat /run/secrets/SECRET_KEY_BASE)" mix phx.digest
 
 # Compile the release
